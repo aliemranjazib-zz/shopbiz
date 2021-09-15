@@ -3,7 +3,28 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shopbiz/homepage.dart';
-import 'package:shopbiz/screens/login/login.dart';
+import 'package:shopbiz/login.dart';
+
+class SplashInitPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return SplashPage();
+          }
+          if (!snapshot.hasData || snapshot.data == null) {
+            return LoginPage();
+          } else if (snapshot.data.phoneNumber != null) {}
+
+          return SplashPage();
+        },
+      ),
+    );
+  }
+}
 
 class SplashPage extends StatefulWidget {
   static const id = '/SplashPage';
@@ -16,20 +37,16 @@ class _SplashPageState extends State<SplashPage> {
   Timer _timer;
   @override
   void initState() {
-    goto();
-    super.initState();
-  }
-
-  void goto() {
     _timer = Timer(Duration(seconds: 3), () async {
       await Navigator.pushReplacementNamed(context, HomePage.id);
     });
+
+    super.initState();
   }
 
   @override
   void dispose() {
     _timer.cancel();
-    // TODO: implement dispose
     super.dispose();
   }
 

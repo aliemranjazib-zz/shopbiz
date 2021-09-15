@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shopbiz/utils/custom_colors.dart';
+import 'package:shopbiz/custom_colors.dart';
 import 'package:shopbiz/homepage.dart';
-import 'package:shopbiz/screens/login/login.dart';
-import 'package:shopbiz/screens/splashpah.dart';
+import 'package:shopbiz/login.dart';
+import 'package:shopbiz/splashpah.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         primaryColor: primarycolor,
         fontFamily: 'roboto-regular',
       ),
-      home: SplashPage(),
+      home: SplashInitPage(),
       routes: {
         SplashPage.id: (context) => SplashPage(),
         LoginPage.id: (context) => LoginPage(),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shopbiz/models/authprovider.dart';
-import 'package:shopbiz/utils/custom_colors.dart';
+import 'package:shopbiz/authprovider.dart';
+import 'package:shopbiz/custom_colors.dart';
 
 class LoginPage extends StatelessWidget {
   static const id = '/LoginPage';
