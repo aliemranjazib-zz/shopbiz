@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shopbiz/login.dart';
 
-class HomePage extends StatelessWidget {
+class ProfileInitPage extends StatelessWidget {
   static const id = '/HomePage';
 
   Future signout(BuildContext context) async {
