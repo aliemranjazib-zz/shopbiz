@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shopbiz/models/categories.dart';
 import 'package:shopbiz/utils/contants.dart';
+import 'package:shopbiz/utils/decoration.dart';
+import 'package:shopbiz/widgets/app_drawer.dart';
 import 'package:shopbiz/widgets/slider.dart';
 
 class MainPage extends StatefulWidget {
@@ -25,15 +27,17 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: AppDrawer(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('home page'),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: ListView(
           children: [
             Container(
-              decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(10),
-              ),
+              decoration: decoration(),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: TextField(

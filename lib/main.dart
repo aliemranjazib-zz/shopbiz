@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shopbiz/adminscreens/addproduct.dart';
 import 'package:shopbiz/screens/main_screen.dart';
 import 'package:shopbiz/utils/custom_colors.dart';
 import 'package:shopbiz/homepage.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         LoginPage.id: (context) => LoginPage(),
         ProfileInitPage.id: (context) => ProfileInitPage(),
         MainPage.id: (context) => MainPage(),
+        AddProductPage.id: (context) => AddProductPage(),
       },
     );
   }
