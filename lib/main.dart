@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         primaryColor: primarycolor,
         fontFamily: 'roboto-regular',
       ),
-      home: SplashInitPage(),
+      home: AddProductPage(),
       routes: {
         SplashPage.id: (context) => SplashPage(),
         LoginPage.id: (context) => LoginPage(),
