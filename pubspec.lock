@@ -113,6 +113,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  favorite_button:
+    dependency: "direct main"
+    description:
+      name: favorite_button
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.4"
   ffi:
     dependency: transitive
     description:

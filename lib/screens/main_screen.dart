@@ -1,7 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shopbiz/login.dart';
 import 'package:shopbiz/models/categories.dart';
+import 'package:shopbiz/models/usermodel.dart';
+import 'package:shopbiz/profileinitpage.dart';
+import 'package:shopbiz/screens/products/productspage.dart';
 import 'package:shopbiz/utils/contants.dart';
 import 'package:shopbiz/utils/decoration.dart';
 import 'package:shopbiz/widgets/app_drawer.dart';
@@ -22,6 +26,25 @@ class _MainPageState extends State<MainPage> {
   void dispose() {
     searchC.clear();
     super.dispose();
+  }
+
+  // @override
+  // void initState() {
+  //   //go();
+  //   super.initState();
+  // }
+  AppUser appUser = AppUser();
+
+  @override
+  void didChangeDependencies() async {
+    if (await appUser.getInfoFormDb) {
+      if (!AppUser.isLoggedIn) {
+        Navigator.pushReplacementNamed(context, LoginPage.id);
+      } else {
+        Navigator.pushReplacementNamed(context, ProfileInitPage.id);
+      }
+    }
+    super.didChangeDependencies();
   }
 
   @override
@@ -72,34 +95,46 @@ class _MainPageState extends State<MainPage> {
               children: newList
                   .map((e) => Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: LinearGradient(
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                                colors: [Colors.purple, Colors.blue]),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(18.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    e.name,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              ProductPage.id,
+                              arguments: {
+                                "category": e.name,
+                                "icon": e.icon,
+                              },
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: [Colors.purple, Colors.blue]),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(18.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      e.name,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Icon(
-                                  e.icon,
-                                  size: 35,
-                                  color: Colors.white,
-                                )
-                              ],
+                                  Icon(
+                                    e.icon,
+                                    size: 35,
+                                    color: Colors.white,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),

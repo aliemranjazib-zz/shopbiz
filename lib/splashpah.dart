@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shopbiz/homepage.dart';
+import 'package:shopbiz/models/usermodel.dart';
+import 'package:shopbiz/profileinitpage.dart';
 import 'package:shopbiz/login.dart';
 import 'package:shopbiz/screens/main_screen.dart';
 
@@ -18,7 +19,9 @@ class SplashInitPage extends StatelessWidget {
           }
           if (!snapshot.hasData || snapshot.data == null) {
             return LoginPage();
-          } else if (snapshot.data.phoneNumber != null) {}
+          } else if (snapshot.data.phoneNumber != null) {
+            AppUser.set(snapshot.data.phoneNumber);
+          }
 
           return SplashPage();
         },

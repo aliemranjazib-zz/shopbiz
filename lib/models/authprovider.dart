@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shopbiz/homepage.dart';
+import 'package:shopbiz/models/usermodel.dart';
+import 'package:shopbiz/profileinitpage.dart';
 import 'package:shopbiz/screens/main_screen.dart';
 
 class AuthProvider {
@@ -16,6 +17,7 @@ class AuthProvider {
           Navigator.pop(context);
           User user = result.user;
           if (user != null) {
+            AppUser.set(phone);
             Navigator.pushReplacementNamed(context, MainPage.id);
           } else {
             Fluttertoast.showToast(msg: 'user is not signed in');
@@ -50,6 +52,8 @@ class AuthProvider {
                               await _auth.signInWithCredential(credential);
                           User user = result.user;
                           if (user != null) {
+                            AppUser.set(phone);
+
                             Navigator.pushReplacementNamed(
                                 context, MainPage.id);
 

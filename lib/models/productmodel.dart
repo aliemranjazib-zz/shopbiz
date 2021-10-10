@@ -4,9 +4,10 @@ import 'package:firebase_core/firebase_core.dart';
 class ProductModel {
   String category;
   String productName;
+  String detail;
   String serialCode;
   int price;
-  double weight;
+  String weight;
   String brandName;
   int quantity;
   List<String> imagesUrl;
@@ -15,6 +16,7 @@ class ProductModel {
   ProductModel({
     this.category,
     this.productName,
+    this.detail,
     this.serialCode,
     this.price,
     this.weight,
@@ -30,6 +32,7 @@ class ProductModel {
     Map<String, dynamic> data = {
       "category": productModel.category,
       "productName": productModel.productName,
+      "detail": productModel.detail,
       "serialCode": productModel.serialCode,
       "price": productModel.price,
       "weight": productModel.weight,

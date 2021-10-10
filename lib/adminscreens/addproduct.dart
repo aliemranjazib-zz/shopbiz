@@ -24,6 +24,7 @@ class _AddProductPageState extends State<AddProductPage> {
   var priceC = TextEditingController();
   var weightC = TextEditingController();
   var brandC = TextEditingController();
+  var detailC = TextEditingController();
 
   var quantityC = TextEditingController();
   var onSaleC = TextEditingController();
@@ -42,9 +43,10 @@ class _AddProductPageState extends State<AddProductPage> {
       ProductModel().addProduct(ProductModel(
         category: categoryC.text,
         productName: productNameC.text,
+        detail: detailC.text,
         serialCode: serialCode.text,
         price: int.parse(priceC.text),
-        weight: double.parse(weightC.text),
+        weight: weightC.text,
         brandName: brandC.text,
         quantity: int.parse(quantityC.text),
         imagesUrl: imageUrls,
@@ -118,6 +120,22 @@ class _AddProductPageState extends State<AddProductPage> {
                   },
                 ),
                 EditField(
+                  lines: 5,
+                  validator: (String v) {
+                    if (v.isEmpty) {
+                      return 'should not be empty';
+                    }
+                    return null;
+                  },
+                  controller: detailC,
+                  hint: 'enter detail',
+                  onsubmit: (value) {
+                    setState(() {
+                      serialCode.text = value;
+                    });
+                  },
+                ),
+                EditField(
                   validator: (String v) {
                     if (v.isEmpty) {
                       return 'should not be empty';
@@ -140,7 +158,7 @@ class _AddProductPageState extends State<AddProductPage> {
                     return null;
                   },
                   controller: priceC,
-                  hint: 'enter price name',
+                  hint: 'enter price',
                   onsubmit: (value) {
                     setState(() {
                       priceC.text = value;
@@ -185,7 +203,7 @@ class _AddProductPageState extends State<AddProductPage> {
                     return null;
                   },
                   controller: quantityC,
-                  hint: 'enter quantity name',
+                  hint: 'enter quantity',
                   onsubmit: (value) {
                     setState(() {
                       quantityC.text = value;
@@ -287,7 +305,9 @@ class _AddProductPageState extends State<AddProductPage> {
         decoration: decoration(),
         child: images.length == 0
             ? IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  loadAsset();
+                },
                 icon: Icon(Icons.add),
               )
             : GridView.count(
@@ -310,11 +330,13 @@ class EditField extends StatelessWidget {
   Function onsubmit;
   Function validator;
   TextEditingController controller;
+  int lines;
   EditField({
     this.hint,
     this.onsubmit,
     this.controller,
     this.validator,
+    this.lines,
   });
   @override
   Widget build(BuildContext context) {
@@ -325,6 +347,7 @@ class EditField extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: TextFormField(
+              maxLines: lines,
               validator: validator,
               controller: controller,
               onFieldSubmitted: onsubmit,

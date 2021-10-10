@@ -1,3 +1,5 @@
+import 'package:fluttertoast/fluttertoast.dart';
+
 class CarouselItems {
   String images;
   String text;
@@ -47,3 +49,7 @@ List caoursel = [
 //   'https://cdn.pixabay.com/photo/2014/05/05/19/53/keyboard-338505_960_720.jpg',
 //   'https://cdn.pixabay.com/photo/2016/01/10/21/05/mic-1132528_960_720.jpg',
 // ];
+
+dislpayMessage(String msg) {
+  Fluttertoast.showToast(msg: msg);
+}
