@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shopbiz/adminscreens/addproduct.dart';
 import 'package:shopbiz/screens/main_screen.dart';
 import 'package:shopbiz/screens/products/products_detail.dart';
@@ -13,6 +14,7 @@ import 'package:shopbiz/splashpah.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // transparent status bar
   ));

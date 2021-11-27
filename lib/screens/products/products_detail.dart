@@ -1,6 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shopbiz/screens/cartpage/cartscreen.dart';
 import 'package:shopbiz/utils/contants.dart';
 import 'package:shopbiz/utils/decoration.dart';
 import 'package:favorite_button/favorite_button.dart';
@@ -16,6 +20,7 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage> {
   int selectedIndex = 0;
   int quant = 1;
+
   @override
   Widget build(BuildContext context) {
     final data =
@@ -30,6 +35,24 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     var quantity = data['quantity'];
     var serialCode = data['serialCode'];
     var weight = data['weight'];
+    String phone;
+    getphone() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      phone = prefs.getString('phone');
+      print("okk $phone");
+      return phone;
+    }
+
+    getphone();
+
+    savecart() async {
+      await FirebaseFirestore.instance.collection('cart').add({
+        'phone': phone,
+        'title': name,
+        'quantity': quant,
+        'price': price * quant,
+      });
+    }
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -280,13 +303,22 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   ],
                                 ),
                                 Divider(),
+                                Text("total price ${price * quant}"),
+                                Divider(),
                                 Row(
                                   children: [
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: ElevatedButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              savecart();
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (_) =>
+                                                          CartScreen()));
+                                            },
                                             child: Text("Confirm")),
                                       ),
                                     ),
@@ -294,7 +326,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: ElevatedButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
                                             child: Text("Cancel")),
                                       ),
                                     ),

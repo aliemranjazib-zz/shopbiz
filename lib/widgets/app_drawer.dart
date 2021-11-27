@@ -20,6 +20,9 @@ class AppDrawer extends StatelessWidget {
             drawerItems('admin page', FontAwesomeIcons.user, () {
               Navigator.pushReplacementNamed(context, AddProductPage.id);
             }),
+            drawerItems('Cart', FontAwesomeIcons.shoppingCart, () {
+              Navigator.pushReplacementNamed(context, AddProductPage.id);
+            }),
           ],
         ),
       ),

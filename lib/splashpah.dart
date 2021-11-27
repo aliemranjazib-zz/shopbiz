@@ -2,12 +2,21 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shopbiz/models/usermodel.dart';
 import 'package:shopbiz/profileinitpage.dart';
 import 'package:shopbiz/login.dart';
 import 'package:shopbiz/screens/main_screen.dart';
 
 class SplashInitPage extends StatelessWidget {
+  Future<bool> savephone(String phonenumber) async {
+    Future<bool> d;
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    d = sp.setString('phone', phonenumber);
+    print("okk $d");
+    return d;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,6 +29,9 @@ class SplashInitPage extends StatelessWidget {
           if (!snapshot.hasData || snapshot.data == null) {
             return LoginPage();
           } else if (snapshot.data.phoneNumber != null) {
+            print('phone is not null');
+            print("okk ${snapshot.data.phoneNumber}");
+            savephone(snapshot.data.phoneNumber);
             AppUser.set(snapshot.data.phoneNumber);
           }
 
